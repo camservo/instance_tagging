@@ -1,5 +1,6 @@
 use Text::CSV::Slurp;
 # use strict;
+# use warnings;
 
  #https://metacpan.org/pod/Text::CSV::Slurp
 
@@ -11,9 +12,15 @@ use Text::CSV::Slurp;
 $filename = "test.csv"; 
 my $data = Text::CSV::Slurp->load(file       => $filename );
 
-$, = "\n";
-print keys $data->[0];
-print $data->[0]{desc};
+# print Dumper($data);
+
+foreach $instance (@$data) {
+    print $instance->{Name}, "\n";
+}
+
+# $, = "\n";
+# print keys $data->[0];
+# print $data->[0]{desc};
 # my $data = Text::CSV::Slurp->load(filehandle => $filehandle [,%options]);
 # my $data = Text::CSV::Slurp->load(string     => $string     [,%options]);
  
