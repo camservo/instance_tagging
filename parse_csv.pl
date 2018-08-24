@@ -1,78 +1,36 @@
 #!/usr/bin/perl
 
-# use strict;
-# use warnings;
+use strict;
+use warnings;
 use Text::CSV;
-use Data::Dump;
 
+# Should pass the file as argument.
 my $file = "test.csv";
 
+# It would be nice to have this dereferenced.  I hate dealing with ref data.
 my @refData = &parse_csv($file);
-my @data;
 
 foreach my $instance (@refData) {
-    # print "working: $instance->[0]";
     tag_instance($instance)
 }
 
-
-# print @test_array;
-# dump @test_array;
-
-# @test = @test_array[0];
-# foreach my $line (@test) {
- 
-#     print $line->[0], $line->[1];
-# }
-
-# print @test_array[0]->{Name}, "\n";
-
-
 sub parse_csv {
-
     my $file = shift;
-
     open my $fh, "<", $file or die "$file: $!";
-
     my $csv = Text::CSV->new ({
         binary => 1,
         auto_diag => 1
     });
 
-    $csv->column_names ($csv->getline ($fh)); # use header
+    $csv->column_names ($csv->getline ($fh)); # use header to reference data.
 
-    my @array;
-
+    my @data;
     while (my $row = $csv->getline_hr ($fh)) {
-
-        # push @array, $row;
-        push @array, [$row->{Name}, $row->{desc}]
-
-        # my $name = $row->{Name};
-        # my $desc = $row->{desc};
-
-        # @array[0]=$name;
-        # @array[1]=$desc;
-
-        # printf "Name: %-32s Contact: %s\n",
-        # $row->{Name}, $row->{Address};
-
-        # push @array, [$name, $desc];
-        # push @array, $desc;
-
-
-        # $description = $row->{Name};
+        push @data, [$row->{Name}, $row->{desc}] # reference data by name in header
     }
-
-
-
-    # print "description: ", $description, "\n";
-
     close $fh;
 
-    # push @array_of_hashes, $row;
-
-    return(@array)
+    return(@data);
 }
 
 sub tag_instance {
