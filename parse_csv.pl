@@ -39,6 +39,10 @@ sub tag_instance {
     my $name = $instance->[0];
     my $desc = $instance->[1];
 
-    print "Name: ", $name, ":\n";
-    print "Desc: ", $desc, ":\n";
+    ##TODO: parse tag for existing values.
+
+    ##TODO: create new tag that keeps existing values and writes new ones.
+
+    # print "Name: ", $name, ":\n";
+    # print "Desc: ", $desc, ":\n";
 }
